@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function StudentLogin() {
+  const navigate = useNavigate();
   const [rollNumber, setRoll] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -20,28 +22,35 @@ export default function StudentLogin() {
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const response = await fetch("http://localhost:3000/student/login", {
-      method: "POST",
-      body: JSON.stringify({ rollNumber, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log(data);
+      const response = await fetch("http://localhost:3000/student/login", {
+        method: "POST",
+        body: JSON.stringify({ rollNumber, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    // reset
-    setRoll("");
-    setPassword("");
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+      localStorage.setItem("token", data.token);
+      navigate("/student/dashboard");
+      // reset
+      setRoll("");
+      setPassword("");
+      setError("");
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   return (
     <div className="flex flex-col gap-2 items-center py-8 rounded-md bg-white">
       <h1 className="text-3xl font-bold text-center text-sky-600">Student Login</h1>
       <p className="text-sm">Please enter your details</p>
-      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-8 px-8 py-8 mt-4">
+      <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 px-8 py-8 mt-4">
         <label htmlFor="rollNumber" className="relative flex flex-col w-full border-b-2 border-b-zinc-700">
           <input type="number" name="rollNumber" id="rollNumber" className="bg-inherit peer py-2 focus:outline-none placeholder-transparent" placeholder="Roll Number" onChange={handleChange} value={rollNumber} />
           <span className="text-xs font-semibold text-zinc-500 absolute -top-4 left-0 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-4 peer-focus:text-xs transition-all duration-100">Roll Number</span>
@@ -60,6 +69,7 @@ export default function StudentLogin() {
           Register now
         </Link>
       </div>
+      {error && <p className="uppercase mt-4 text-red-500 text-xs">{error}</p>}
     </div>
   );
 }

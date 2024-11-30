@@ -7,6 +7,8 @@ import RootLayout from "./layouts/RootLayout.jsx";
 import Error from "./pages/Error.jsx";
 import StudentLogin from "./pages/StudentLogin.jsx";
 import StudentRegister from "./pages/StudentRegister.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import StudentDashboard from "./pages/StudentDashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: "student/register",
         element: <StudentRegister />,
+      },
+      {
+        path: "student/dashboard",
+        element: (
+          <ProtectedRoute>
+            <StudentDashboard />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
