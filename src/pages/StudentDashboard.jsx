@@ -92,12 +92,9 @@ export default function StudentDashboard() {
         Authorization: `BEARER ${token}`,
       },
     });
-    const file = await response.json();
 
-    // convert the pdf data [here: file.file.data.data]
-    // to a readable pdf object
-    const uint8Array = new Uint8Array(file.file.data.data);
-    const blob = new Blob([uint8Array], { type: "application/pdf" });
+    const blob = await response.blob();
+    console.log(blob);
     const url = URL.createObjectURL(blob);
 
     window.open(url, "_blank");
