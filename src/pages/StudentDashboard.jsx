@@ -82,6 +82,27 @@ export default function StudentDashboard() {
     }
   }
 
+  async function handleView(e) {
+    const token = localStorage.getItem("token");
+    const code = e.target.name;
+    let Dynamic_URL = `http://localhost:3000/student/getAssignment?code=${encodeURIComponent(code)}`;
+    const response = await fetch(Dynamic_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `BEARER ${token}`,
+      },
+    });
+    const file = await response.json();
+
+    // convert the pdf data [here: file.file.data.data]
+    // to a readable pdf object
+    const uint8Array = new Uint8Array(file.file.data.data);
+    const blob = new Blob([uint8Array], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+
+    window.open(url, "_blank");
+  }
+
   return (
     <div className="w-full min-h-full bg-white rounded-md p-4 flex flex-col gap-4">
       {error && <p className="text-red-600 text-center">{error}</p>}
@@ -104,7 +125,7 @@ export default function StudentDashboard() {
                 <p className="">Paper Code: {subject.code}</p>
                 <p className="">Status: {subject.isSubmitted ? "Submitted" : "Not Submitted"}</p>
                 {subject.isSubmitted ? (
-                  <button name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 py-1 mt-1 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-20">
+                  <button onClick={handleView} name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 py-1 mt-1 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-20">
                     View
                   </button>
                 ) : (
