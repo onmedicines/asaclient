@@ -120,7 +120,7 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className={`min-h-full bg-white rounded-md p-4 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
+    <div className={`min-h-full bg-white w-full max-w-screen-sm rounded-md p-16 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
       {isLoading && (
         <div className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-sky-500 p-4 text-white">
           <p>Loading...</p>
@@ -133,31 +133,35 @@ export default function StudentDashboard() {
 
       <div>
         <p className="text-lg font-semibold text-zinc-700">Details</p>
-        <p className="">Roll Number: {studentData.rollNumber}</p>
-        <p className="">Semester: {studentData.semester}</p>
+        <div className="flex gap-8">
+          <p className="">Roll Number: {studentData.rollNumber}</p>
+          <p className="">Semester: {studentData.semester}</p>
+        </div>
       </div>
 
       <div>
         <p className="text-lg font-semibold text-zinc-700">Assignments</p>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
           {studentData.subjects.map((subject, index) => {
             return (
               <div key={index} className="flex flex-col">
                 <p className="text-lg text-sky-600 font-semibold">{subject.name}</p>
-                <p className="">Paper Code: {subject.code}</p>
-                <p className="">Status: {subject.isSubmitted ? "Submitted" : "Not Submitted"}</p>
-                {subject.isSubmitted ? (
-                  <button onClick={handleView} name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 py-1 mt-1 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-20">
-                    View
-                  </button>
-                ) : (
-                  <form onSubmit={handleSubmitAssignment} encType="multipart/form-data">
-                    <input onChange={handleChange} name={`${subject.code}`} type="file" className="block text-sm file:mr-4 file:rounded-sm file:border file:border-zinc-600 file:text-sm file:font-semibold file:text-zinc-600  hover:file:bg-zinc-600 hover:file:text-white file:transition-colors file:duration-200" />
-                    <button name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 py-1 mt-1 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-200">
-                      Submit
+                <div className="flex gap-8 flex-wrap items-center">
+                  <p className="">Paper Code: {subject.code}</p>
+                  <p className="">Status: {subject.isSubmitted ? "Submitted" : "Not Submitted"}</p>
+                  {subject.isSubmitted ? (
+                    <button onClick={handleView} name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 mt-1 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-20">
+                      View
                     </button>
-                  </form>
-                )}
+                  ) : (
+                    <form onSubmit={handleSubmitAssignment} encType="multipart/form-data">
+                      <input onChange={handleChange} name={`${subject.code}`} type="file" className="block text-sm file:mr-4 file:rounded-sm file:border file:border-zinc-600 file:text-sm file:font-semibold file:text-zinc-600  hover:file:bg-zinc-600 hover:file:text-white file:transition-colors file:duration-200" />
+                      <button name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 py-1 mt-1 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-200">
+                        Submit
+                      </button>
+                    </form>
+                  )}
+                </div>
               </div>
             );
           })}
