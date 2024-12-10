@@ -14,6 +14,8 @@ export default function StudentDashboard() {
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     updateStudentDetails();
   }, []);
@@ -53,6 +55,8 @@ export default function StudentDashboard() {
 
   async function handleSubmitAssignment(e) {
     try {
+      setIsLoading(true);
+
       e.preventDefault();
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Something went wrong, please login again");
@@ -68,6 +72,9 @@ export default function StudentDashboard() {
           Authorization: `BEARER ${token}`,
         },
       });
+
+      setIsLoading(false);
+
       if (!response.ok) throw new Error("The assignment could not be submitted");
       const data = await response.json();
       setSuccess(data.message);
@@ -77,32 +84,50 @@ export default function StudentDashboard() {
       setCode();
       updateStudentDetails();
     } catch (err) {
+      setIsLoading(false);
       setError(err.message);
       setSuccess();
     }
   }
 
   async function handleView(e) {
-    const token = localStorage.getItem("token");
-    const code = e.target.name;
-    let Dynamic_URL = `http://localhost:3000/student/getAssignment?code=${encodeURIComponent(code)}`;
-    const response = await fetch(Dynamic_URL, {
-      method: "GET",
-      headers: {
-        Authorization: `BEARER ${token}`,
-      },
-    });
+    try {
+      setIsLoading(true);
 
-    const blob = await response.blob();
-    console.log(blob);
-    const url = URL.createObjectURL(blob);
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("User could not be verified");
+      const code = e.target.name;
+      let Dynamic_URL = `http://localhost:3000/student/getAssignment?code=${encodeURIComponent(code)}`;
+      const response = await fetch(Dynamic_URL, {
+        method: "GET",
+        headers: {
+          Authorization: `BEARER ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error("Could not submit the assignment. Please try again");
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      if (!blob || !url) throw new Error("Could not read file. Please try again");
 
-    window.open(url, "_blank");
+      window.open(url, "_blank");
+
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      setError(err.message);
+      setSuccess();
+    }
   }
 
   return (
-    <div className="w-full min-h-full bg-white rounded-md p-4 flex flex-col gap-4">
-      {error && <p className="text-red-600 text-center">{error}</p>}
+    <div className={`min-h-full bg-white rounded-md p-4 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
+      {isLoading && (
+        <div className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-sky-500 p-4 text-white">
+          <p>Loading...</p>
+          <p>(It may take some time if the file is large in size)</p>
+        </div>
+      )}
+      {error && <p className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
       {success && <p className="text-green-700 text-center">{success}</p>}
       <h1 className="text-xl font-bold text-sky-600">Hello, {studentData.name}</h1>
 
