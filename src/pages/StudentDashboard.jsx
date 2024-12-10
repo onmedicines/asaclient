@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentDashboard() {
+  const navigate = useNavigate();
   const [studentData, setStudentData] = useState({
     rollNumber: null,
     name: "",
@@ -119,8 +121,13 @@ export default function StudentDashboard() {
     }
   }
 
+  function handleLogout() {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
+
   return (
-    <div className={`min-h-full bg-white w-full max-w-screen-sm rounded-md p-16 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
+    <div className={`min-h-full bg-white w-full max-w-screen-sm rounded-md p-8 sm:p-16 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
       {isLoading && (
         <div className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-sky-500 p-4 text-white">
           <p>Loading...</p>
@@ -129,11 +136,16 @@ export default function StudentDashboard() {
       )}
       {error && <p className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
       {success && <p className="text-green-700 text-center">{success}</p>}
-      <h1 className="text-xl font-bold text-sky-600">Hello, {studentData.name}</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-xl font-bold text-sky-600">Hello, {studentData.name}</h1>
+        <button className="bg-red-400 hover:bg-red-500 transition-colors duration-200 text-white px-2 py-1 rounded-sm" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
 
       <div>
         <p className="text-lg font-semibold text-zinc-700">Details</p>
-        <div className="flex gap-8">
+        <div className="flex flex-col sm:flex-row sm:gap-8">
           <p className="">Roll Number: {studentData.rollNumber}</p>
           <p className="">Semester: {studentData.semester}</p>
         </div>
@@ -146,17 +158,17 @@ export default function StudentDashboard() {
             return (
               <div key={index} className="flex flex-col">
                 <p className="text-lg text-sky-600 font-semibold">{subject.name}</p>
-                <div className="flex gap-8 flex-wrap items-center">
+                <div className="flex flex-col sm:flex-row sm:gap-8 sm:flex-wrap sm:items-center">
                   <p className="">Paper Code: {subject.code}</p>
                   <p className="">Status: {subject.isSubmitted ? "Submitted" : "Not Submitted"}</p>
                   {subject.isSubmitted ? (
-                    <button onClick={handleView} name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 mt-1 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-20">
+                    <button onClick={handleView} name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-20">
                       View
                     </button>
                   ) : (
-                    <form onSubmit={handleSubmitAssignment} encType="multipart/form-data">
-                      <input onChange={handleChange} name={`${subject.code}`} type="file" className="block text-sm file:mr-4 file:rounded-sm file:border file:border-zinc-600 file:text-sm file:font-semibold file:text-zinc-600  hover:file:bg-zinc-600 hover:file:text-white file:transition-colors file:duration-200" />
-                      <button name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 py-1 mt-1 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-200">
+                    <form onSubmit={handleSubmitAssignment} encType="multipart/form-data" className="md:flex md:items-center md:gap-4">
+                      <input onChange={handleChange} name={`${subject.code}`} type="file" className="block text-sm file:mr-4 file:rounded-full file:px-4 file:py-2 file:border file:border-zinc-600 file:text-sm file:font-semibold file:text-zinc-600  hover:file:bg-zinc-600 hover:file:text-white file:transition-colors file:duration-200" />
+                      <button name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-200">
                         Submit
                       </button>
                     </form>
