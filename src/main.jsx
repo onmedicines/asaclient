@@ -9,6 +9,7 @@ import StudentLogin from "./pages/StudentLogin.jsx";
 import StudentRegister from "./pages/StudentRegister.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import StudentDashboard from "./pages/StudentDashboard.jsx";
+import FacultyLogin from "./pages/faculty/FacultyLogin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             <StudentDashboard />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "faculty/login",
+        element: <FacultyLogin />,
       },
     ],
   },
