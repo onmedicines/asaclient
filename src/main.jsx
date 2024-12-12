@@ -7,9 +7,11 @@ import RootLayout from "./layouts/RootLayout.jsx";
 import Error from "./pages/Error.jsx";
 import StudentLogin from "./pages/StudentLogin.jsx";
 import StudentRegister from "./pages/StudentRegister.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import StudentDashboard from "./pages/StudentDashboard.jsx";
 import FacultyLogin from "./pages/faculty/FacultyLogin.jsx";
+import FacultyDashboard from "./pages/faculty/FacultyDashboard.jsx";
+import ProtectedStudent from "./components/ProtectedStudent.jsx";
+import ProtectedFaculty from "./components/ProtectedFaculty.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,14 +34,22 @@ const router = createBrowserRouter([
       {
         path: "student/dashboard",
         element: (
-          <ProtectedRoute>
+          <ProtectedStudent>
             <StudentDashboard />
-          </ProtectedRoute>
+          </ProtectedStudent>
         ),
       },
       {
         path: "faculty/login",
         element: <FacultyLogin />,
+      },
+      {
+        path: "faculty/dashboard",
+        element: (
+          <ProtectedFaculty>
+            <FacultyDashboard />
+          </ProtectedFaculty>
+        ),
       },
     ],
   },
