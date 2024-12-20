@@ -123,7 +123,7 @@ export default function StudentDashboard() {
 
   function handleLogout() {
     localStorage.removeItem("token");
-    navigate("/");
+    navigate("/student/login");
   }
 
   return (
@@ -167,8 +167,8 @@ export default function StudentDashboard() {
                     </button>
                   ) : (
                     <form onSubmit={handleSubmitAssignment} encType="multipart/form-data" className="md:flex md:items-center md:gap-4">
-                      <input onChange={handleChange} name={`${subject.code}`} type="file" className="block text-sm file:mr-4 file:rounded-full file:px-4 file:py-2 file:border file:border-zinc-600 file:text-sm file:font-semibold file:text-zinc-600  hover:file:bg-zinc-600 hover:file:text-white file:transition-colors file:duration-200" />
-                      <button name={`${subject.code}`} className="text-sky-600 border border-sky-600 px-2 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-200">
+                      <input onChange={handleChange} name={`${subject.code}`} type="file" className="block text-sm file:mr-4 file:rounded-full file:px-2 file:py-1 sm:file:px-4 sm:file:py-2 file:border file:border-zinc-600 file:text-sm file:font-semibold file:text-zinc-600  hover:file:bg-zinc-600 hover:file:text-white file:transition-colors file:duration-200 mb-2" />
+                      <button name={`${subject.code}`} className="w-full sm:w-auto text-sky-600 border border-sky-600 px-2 rounded-sm hover:bg-sky-600 hover:text-white transition-colors duration-200">
                         Submit
                       </button>
                     </form>
