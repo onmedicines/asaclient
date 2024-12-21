@@ -99,7 +99,7 @@ export default function StudentDashboard() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("User could not be verified");
       const code = e.target.name;
-      let Dynamic_URL = `http://localhost:3000/getAssignment?code=${encodeURIComponent(code)}`;
+      let Dynamic_URL = `http://localhost:3000/student/getAssignment?code=${code}`;
       const response = await fetch(Dynamic_URL, {
         method: "GET",
         headers: {
