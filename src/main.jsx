@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import RootLayout from "./layouts/RootLayout.jsx";
 import Error from "./pages/Error.jsx";
@@ -12,6 +12,9 @@ import FacultyLogin from "./pages/faculty/FacultyLogin.jsx";
 import FacultyDashboard from "./pages/faculty/FacultyDashboard.jsx";
 import ProtectedStudent from "./components/ProtectedStudent.jsx";
 import ProtectedFaculty from "./components/ProtectedFaculty.jsx";
+import SearchByRoll from "./pages/faculty/SearchByRoll.jsx";
+import SearchSubmitted from "./pages/faculty/SearchSubmitted.jsx";
+import SearchNotSubmitted from "./pages/faculty/SearchNotSubmitted.jsx";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +53,24 @@ const router = createBrowserRouter([
             <FacultyDashboard />
           </ProtectedFaculty>
         ),
+        children: [
+          {
+            index: true,
+            element: <Navigate to="searchRollNumber" replace />,
+          },
+          {
+            path: "searchRollNumber",
+            element: <SearchByRoll />,
+          },
+          {
+            path: "searchSubmitted",
+            element: <SearchSubmitted />,
+          },
+          {
+            path: "searchNotSubmitted",
+            element: <SearchNotSubmitted />,
+          },
+        ],
       },
     ],
   },
