@@ -70,13 +70,13 @@ export default function FacultyDashboard() {
         <div className="flex flex-col gap-2">
           <p className="text-zinc-600 font-semibold">Search by:</p>
           <div className="flex gap-2 flex-wrap">
-            <NavLink to="/faculty/dashboard/searchRollNumber" className={(isActive) => `text-sm px-3 flex items-center rounded-full border border-sky-600 hover:bg-sky-600 transition-colors duration-200 hover:text-white ${isActive && "bg-sky-600 text-white"}`}>
+            <NavLink to="/faculty/dashboard/searchRollNumber" className={({ isActive }) => `text-sm px-3 flex items-center rounded-full border border-sky-600 hover:bg-sky-600 transition-colors duration-200 hover:text-white ${isActive && "bg-sky-600 text-white"}`}>
               Roll Number
             </NavLink>
-            <NavLink to="/faculty/dashboard/searchSubmitted" className="text-sm px-3 flex items-center rounded-full border border-sky-600 hover:bg-sky-600 transition-colors duration-200 hover:text-white">
+            <NavLink to="/faculty/dashboard/searchSubmitted" className={({ isActive }) => `text-sm px-3 flex items-center rounded-full border border-sky-600 hover:bg-sky-600 transition-colors duration-200 hover:text-white ${isActive && "bg-sky-600 text-white"}`}>
               Submitted
             </NavLink>
-            <NavLink to="/faculty/dashboard/searchNotSubmitted" className="text-sm px-3 flex items-center rounded-full border border-sky-600 hover:bg-sky-600 transition-colors duration-200 hover:text-white">
+            <NavLink to="/faculty/dashboard/searchNotSubmitted" className={({ isActive }) => `text-sm px-3 flex items-center rounded-full border border-sky-600 hover:bg-sky-600 transition-colors duration-200 hover:text-white ${isActive && "bg-sky-600 text-white"}`}>
               Not Submitted
             </NavLink>
           </div>
