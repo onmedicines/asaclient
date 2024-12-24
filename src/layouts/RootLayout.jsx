@@ -10,12 +10,12 @@ export default function RootLayout() {
   return (
     <div className={`h-screen min-h-screen w-full text-zinc-800 flex flex-col ${isLoading && "pointer-events-none cursor-wait"}`}>
       {isLoading && (
-        <div className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-sky-500 p-4 text-white">
+        <div className="z-10 text-center fixed right-4 bottom-4 rounded-sm w-fit bg-sky-500 p-4 text-white">
           <p>Loading...</p>
           <p>(It may take some time if the file is large in size)</p>
         </div>
       )}
-      {error && <p className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
+      {error && <p className="z-10 text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
 
       <header className="text-center text-xl sm:text-2xl font-bold py-4 bg-sky-600 text-zinc-200 ">Assignment Submission App</header>
       <main className="relative flex flex-col grow bg-sky-200 py-8 px-4 justify-center items-center">
