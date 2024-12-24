@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { LoadingContext } from "../context/LoadingContext";
 
@@ -6,6 +6,14 @@ export default function RootLayout() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    let timeout = setTimeout(() => {
+      setError("");
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [error]);
 
   return (
     <div className={`h-screen min-h-screen w-full text-zinc-800 flex flex-col ${isLoading && "pointer-events-none cursor-wait"}`}>
