@@ -40,7 +40,7 @@ export default function StudentLogin() {
       if (!rollNumber || !name || !semester || !password || !checkPassword) throw new Error("One or more fields missing");
       if (password !== checkPassword) throw new Error("Password and confirm password do not match");
 
-      const response = await fetch("http://localhost:3000/student/register", {
+      const response = await fetch("https://asaserver.onrender.com/student/register", {
         method: "POST",
         body: JSON.stringify({ rollNumber, name, semester, password }),
         headers: {
