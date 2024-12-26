@@ -5,9 +5,9 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import Home from "./pages/Home.jsx";
 import RootLayout from "./layouts/RootLayout.jsx";
 import Error from "./pages/Error.jsx";
-import StudentLogin from "./pages/StudentLogin.jsx";
-import StudentRegister from "./pages/StudentRegister.jsx";
-import StudentDashboard from "./pages/StudentDashboard.jsx";
+import StudentLogin from "./pages/student/StudentLogin.jsx";
+import StudentRegister from "./pages/student/StudentRegister.jsx";
+import StudentDashboard from "./pages/student/StudentDashboard.jsx";
 import FacultyLogin from "./pages/faculty/FacultyLogin.jsx";
 import FacultyDashboard from "./pages/faculty/FacultyDashboard.jsx";
 import ProtectedStudent from "./components/ProtectedStudent.jsx";
