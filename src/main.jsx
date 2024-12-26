@@ -15,6 +15,9 @@ import ProtectedFaculty from "./components/ProtectedFaculty.jsx";
 import SearchByRoll from "./pages/faculty/SearchByRoll.jsx";
 import SearchSubmitted from "./pages/faculty/SearchSubmitted.jsx";
 import SearchNotSubmitted from "./pages/faculty/SearchNotSubmitted.jsx";
+import AdminLogin from "./pages/admin/AdminLogin.jsx";
+import ProtectedAdmin from "./components/ProtectedDashboard.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +74,18 @@ const router = createBrowserRouter([
             element: <SearchNotSubmitted />,
           },
         ],
+      },
+      {
+        path: "admin/login",
+        element: <AdminLogin />,
+      },
+      {
+        path: "admin/dashboard",
+        element: (
+          <ProtectedAdmin>
+            <AdminDashboard />
+          </ProtectedAdmin>
+        ),
       },
     ],
   },
