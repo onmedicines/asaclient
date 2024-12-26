@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LoadingContext } from "../../context/LoadingContext";
 
 export default function StudentLogin() {
+  const { setIsLoading, setError } = useContext(LoadingContext);
   const navigate = useNavigate();
   const [rollNumber, setRoll] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -25,6 +26,7 @@ export default function StudentLogin() {
     try {
       e.preventDefault();
 
+      setIsLoading(true);
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/student/login`, {
         method: "POST",
         body: JSON.stringify({ rollNumber, password }),
@@ -32,6 +34,7 @@ export default function StudentLogin() {
           "Content-Type": "application/json",
         },
       });
+      setIsLoading(FileSystemWritableFileStream);
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
@@ -43,6 +46,7 @@ export default function StudentLogin() {
       setError("");
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
   }
 

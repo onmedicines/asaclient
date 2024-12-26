@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LoadingContext } from "../../context/LoadingContext";
 
 export default function FacultyLogin() {
+  const { setIsLoading, setError } = useContext(LoadingContext);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -25,6 +26,7 @@ export default function FacultyLogin() {
     try {
       e.preventDefault();
 
+      setIsLoading(true);
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/faculty/login`, {
         method: "POST",
         body: JSON.stringify({ username, password }),
@@ -32,23 +34,24 @@ export default function FacultyLogin() {
           "Content-Type": "application/json",
         },
       });
+      setIsLoading(false);
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
       localStorage.setItem("token", data.token);
       navigate("/faculty/dashboard");
       // reset
-      setRoll("");
+      setUsername("");
       setPassword("");
       setError("");
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
   }
 
   return (
     <div className="flex flex-col gap-2 items-center py-8 rounded-md bg-white w-full max-w-lg">
-      {error && <p className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
       <h1 className="text-3xl font-bold text-center text-sky-600">Faculty Login</h1>
       <p className="text-sm">Please enter your details</p>
       <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 px-8 py-8 mt-4">

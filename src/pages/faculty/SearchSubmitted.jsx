@@ -50,6 +50,7 @@ export default function SearchSubmitted() {
       setError("");
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
   }
 
@@ -59,6 +60,7 @@ export default function SearchSubmitted() {
       const rollNumber = e.target.name;
       const token = localStorage.getItem("token");
       let Dynamic_URL = `${import.meta.env.VITE_BACKEND_URL}/faculty/getAssignment?code=${encodeURIComponent(selectedCode)}&rollNumber=${rollNumber}`;
+
       setIsLoading(true);
       const response = await fetch(Dynamic_URL, {
         method: "get",
@@ -69,11 +71,13 @@ export default function SearchSubmitted() {
       if (!response.ok) throw new Error("Could not fetch data");
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
-      setIsLoading(false);
       window.open(url, "_blank");
+      setIsLoading(false);
+
       setError("");
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
   }
 

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoadingContext } from "../../context/LoadingContext";
 
 export default function StudentDashboard() {
+  const { setIsLoading, setError } = useContext(LoadingContext);
   const navigate = useNavigate();
+  const [success, setSuccess] = useState();
   const [studentData, setStudentData] = useState({
     rollNumber: null,
     name: "",
@@ -13,31 +16,37 @@ export default function StudentDashboard() {
   const [file, setFile] = useState();
   const [code, setCode] = useState();
 
-  const [success, setSuccess] = useState();
-  const [error, setError] = useState();
-
-  const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     updateStudentDetails();
   }, []);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSuccess("");
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [success]);
+
   async function updateStudentDetails() {
     try {
       const token = localStorage.getItem("token");
+
+      setIsLoading(true);
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/getStudentInfo`, {
         headers: {
           Authorization: `BEARER ${token}`,
         },
       });
-      if (!response.ok) {
-        throw new Error("Failed to fetch student details");
-      }
+      setIsLoading(false);
+
+      if (!response.ok) throw new Error("Failed to fetch student details");
       const data = await response.json();
       setStudentData(data.student);
     } catch (err) {
       setError(err.message);
       setSuccess();
+      setIsLoading(false);
     }
   }
 
@@ -52,13 +61,12 @@ export default function StudentDashboard() {
     } catch (err) {
       setError(err.message);
       setSuccess();
+      setIsLoading(false);
     }
   }
 
   async function handleSubmitAssignment(e) {
     try {
-      setIsLoading(true);
-
       e.preventDefault();
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Something went wrong, please login again");
@@ -67,6 +75,7 @@ export default function StudentDashboard() {
       formData.append("file", file);
       formData.append("code", code);
 
+      setIsLoading(true);
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/submitAssignment`, {
         method: "POST",
         body: formData,
@@ -74,7 +83,6 @@ export default function StudentDashboard() {
           Authorization: `BEARER ${token}`,
         },
       });
-
       setIsLoading(false);
 
       if (!response.ok) throw new Error("The assignment could not be submitted");
@@ -100,6 +108,8 @@ export default function StudentDashboard() {
       if (!token) throw new Error("User could not be verified");
       const code = e.target.name;
       let Dynamic_URL = `${import.meta.env.VITE_BACKEND_URL}/student/getAssignment?code=${encodeURIComponent(code)}`;
+
+      setIsLoading(true);
       const response = await fetch(Dynamic_URL, {
         method: "GET",
         headers: {
@@ -110,9 +120,7 @@ export default function StudentDashboard() {
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       if (!blob || !url) throw new Error("Could not read file. Please try again");
-
       window.open(url, "_blank");
-
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
@@ -128,13 +136,6 @@ export default function StudentDashboard() {
 
   return (
     <div className={`min-h-full bg-white w-full max-w-screen-sm rounded-md p-8 sm:p-16 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
-      {isLoading && (
-        <div className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-sky-500 p-4 text-white">
-          <p>Loading...</p>
-          <p>(It may take some time if the file is large in size)</p>
-        </div>
-      )}
-      {error && <p className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
       {success && <p className="text-green-700 text-center">{success}</p>}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold text-sky-600">Hello, {studentData.name}</h1>

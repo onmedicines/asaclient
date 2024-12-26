@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LoadingContext } from "../../context/LoadingContext";
 
 export default function StudentLogin() {
+  const { setIsLoading, setError } = useContext(LoadingContext);
   const navigate = useNavigate();
   const [rollNumber, setRoll] = useState("");
   const [name, setName] = useState("");
   const [semester, setSemester] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-  const [error, setError] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -40,6 +41,7 @@ export default function StudentLogin() {
       if (!rollNumber || !name || !semester || !password || !checkPassword) throw new Error("One or more fields missing");
       if (password !== checkPassword) throw new Error("Password and confirm password do not match");
 
+      setIsLoading(true);
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/student/register`, {
         method: "POST",
         body: JSON.stringify({ rollNumber, name, semester, password }),
@@ -47,6 +49,7 @@ export default function StudentLogin() {
           "Content-Type": "application/json",
         },
       });
+      setIsLoading(false);
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
@@ -58,12 +61,12 @@ export default function StudentLogin() {
       setError("");
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
   }
 
   return (
     <div className="flex flex-col gap-2 items-center py-8 rounded-md bg-white w-full max-w-lg">
-      {error && <p className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
       <h1 className="text-3xl font-bold text-center text-sky-600">Student Login</h1>
       <p className="text-sm">Please enter your details</p>
       <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 px-8 py-8 mt-4">

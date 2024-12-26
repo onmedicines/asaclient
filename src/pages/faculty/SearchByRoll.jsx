@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
-import { StateContext } from "./FacultyDashboard";
+import { LoadingContext } from "../../context/LoadingContext";
 
 export default function SearchByRoll() {
-  const { setIsLoading, setError } = useContext(StateContext);
+  const { setIsLoading, setError } = useContext(LoadingContext);
 
   const [rollNumber, setRollNumber] = useState();
   const [student, setStudent] = useState();

@@ -1,6 +1,7 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import { use } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { LoadingContext } from "../../context/LoadingContext";
 
 // context defined in the same file
 // because its only going to be used by its direct children
@@ -8,12 +9,11 @@ export const StateContext = createContext(false);
 
 export default function FacultyDashboard() {
   const navigate = useNavigate();
+  const { setError, setIsLoading } = useContext(LoadingContext);
 
   // update to be an object instead of a string
   // if in future want to add more details other than just name
   const [facultyName, setFacultyName] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getDetails();
@@ -53,13 +53,6 @@ export default function FacultyDashboard() {
 
   return (
     <div className={`min-h-full bg-white w-full max-w-screen-md rounded-md p-8 sm:p-16 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
-      {isLoading && (
-        <div className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-sky-500 p-4 text-white">
-          <p>Loading...</p>
-          <p>(It may take some time if the file is large in size)</p>
-        </div>
-      )}
-      {error && <p className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold text-sky-600">Hello, {facultyName}</h1>
         <button className="bg-red-400 hover:bg-red-500 transition-colors duration-200 text-white px-2 py-1 rounded-sm" onClick={handleLogout}>
