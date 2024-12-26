@@ -31,7 +31,7 @@ export default function FacultyDashboard() {
     try {
       const token = localStorage.getItem("token");
       setIsLoading(true);
-      const response = await fetch("https://asaserver.onrender.com/getFacultyInfo", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/getFacultyInfo`, {
         headers: {
           Authorization: `BEARER ${token}`,
         },

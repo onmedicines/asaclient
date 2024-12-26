@@ -25,7 +25,7 @@ export default function StudentDashboard() {
   async function updateStudentDetails() {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("https://asaserver.onrender.com/getStudentInfo", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/getStudentInfo`, {
         headers: {
           Authorization: `BEARER ${token}`,
         },
@@ -67,7 +67,7 @@ export default function StudentDashboard() {
       formData.append("file", file);
       formData.append("code", code);
 
-      const response = await fetch("https://asaserver.onrender.com/submitAssignment", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/submitAssignment`, {
         method: "POST",
         body: formData,
         headers: {
@@ -99,7 +99,7 @@ export default function StudentDashboard() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("User could not be verified");
       const code = e.target.name;
-      let Dynamic_URL = `https://asaserver.onrender.com/student/getAssignment?code=${encodeURIComponent(code)}`;
+      let Dynamic_URL = `${import.meta.env.VITE_BACKEND_URL}/student/getAssignment?code=${encodeURIComponent(code)}`;
       const response = await fetch(Dynamic_URL, {
         method: "GET",
         headers: {

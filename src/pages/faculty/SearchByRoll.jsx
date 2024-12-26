@@ -17,7 +17,7 @@ export default function SearchByRoll() {
       e.preventDefault();
       const token = localStorage.getItem("token");
       setIsLoading(true);
-      const response = await fetch(`https://asaserver.onrender.com/getStudentByRoll`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/getStudentByRoll`, {
         method: "post",
         headers: {
           Authorization: `BEARER ${token}`,
@@ -41,7 +41,7 @@ export default function SearchByRoll() {
       const code = e.target.name;
       const token = localStorage.getItem("token");
       setIsLoading(true);
-      let Dynamic_URL = `https://asaserver.onrender.com/faculty/getAssignment?code=${encodeURIComponent(code)}&rollNumber=${rollNumber}`;
+      let Dynamic_URL = `${import.meta.env.VITE_BACKEND_URL}/faculty/getAssignment?code=${encodeURIComponent(code)}&rollNumber=${rollNumber}`;
       const response = await fetch(Dynamic_URL, {
         method: "get",
         headers: {

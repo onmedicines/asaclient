@@ -10,7 +10,7 @@ export default function SearchSubmitted() {
   useEffect(() => {
     (async () => {
       const token = localStorage.getItem("token");
-      const response = await fetch("https://asaserver.onrender.com/getSubjects", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/getSubjects`, {
         headers: {
           Authorization: `BEARER ${token}`,
         },
@@ -31,7 +31,7 @@ export default function SearchSubmitted() {
       e.preventDefault();
       const token = localStorage.getItem("token");
       if (!selectedCode) throw new Error("Please select a subject");
-      const DYNAMIC_URL = `https://asaserver.onrender.com/faculty/getAllSubmitted?code=${selectedCode}`;
+      const DYNAMIC_URL = `${import.meta.env.VITE_BACKEND_URL}/faculty/getAllSubmitted?code=${selectedCode}`;
       setIsLoading(true);
       const response = await fetch(DYNAMIC_URL, {
         headers: {
@@ -58,7 +58,7 @@ export default function SearchSubmitted() {
       e.preventDefault();
       const rollNumber = e.target.name;
       const token = localStorage.getItem("token");
-      let Dynamic_URL = `https://asaserver.onrender.com/faculty/getAssignment?code=${encodeURIComponent(selectedCode)}&rollNumber=${rollNumber}`;
+      let Dynamic_URL = `${import.meta.env.VITE_BACKEND_URL}/faculty/getAssignment?code=${encodeURIComponent(selectedCode)}&rollNumber=${rollNumber}`;
       setIsLoading(true);
       const response = await fetch(Dynamic_URL, {
         method: "get",

@@ -25,7 +25,7 @@ export default function StudentLogin() {
     try {
       e.preventDefault();
 
-      const response = await fetch("https://asaserver.onrender.com/student/login", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/student/login`, {
         method: "POST",
         body: JSON.stringify({ rollNumber, password }),
         headers: {
