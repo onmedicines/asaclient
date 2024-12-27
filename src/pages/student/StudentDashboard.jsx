@@ -135,7 +135,7 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className={`min-h-full bg-white w-full max-w-screen-sm rounded-md p-8 sm:p-16 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
+    <div className={`min-h-full bg-white w-full max-w-screen-sm rounded-md p-8 sm:p-16 flex flex-col gap-4 `}>
       {success && <p className="text-green-700 text-center">{success}</p>}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold text-sky-600">Hello, {studentData.name}</h1>
