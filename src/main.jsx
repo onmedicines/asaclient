@@ -18,6 +18,11 @@ import SearchNotSubmitted from "./pages/faculty/SearchNotSubmitted.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import ProtectedAdmin from "./components/ProtectedDashboard.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
+import AddStudent from "./pages/admin/AddStudent.jsx";
+import AddFaculty from "./pages/admin/AddFaculty.jsx";
+import ViewAllFaculties from "./pages/admin/ViewAllFaculties.jsx";
+import SearchStudentByRoll from "./pages/admin/SearchStudentByRoll.jsx";
+import SearchStudentsBySemester from "./pages/admin/SearchStudentsBySemester.jsx";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +91,32 @@ const router = createBrowserRouter([
             <AdminDashboard />
           </ProtectedAdmin>
         ),
+        children: [
+          {
+            index: true,
+            element: <Navigate to="addFaculty" replace />,
+          },
+          {
+            path: "addStudent",
+            element: <AddStudent />,
+          },
+          {
+            path: "addFaculty",
+            element: <AddFaculty />,
+          },
+          {
+            path: "viewAllFaculties",
+            element: <ViewAllFaculties />,
+          },
+          {
+            path: "searchStudentBySemester",
+            element: <SearchStudentsBySemester />,
+          },
+          {
+            path: "searchStudentByRoll",
+            element: <SearchStudentByRoll />,
+          },
+        ],
       },
     ],
   },

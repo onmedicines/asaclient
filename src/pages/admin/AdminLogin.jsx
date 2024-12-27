@@ -37,7 +37,6 @@ export default function AdminLogin() {
       setIsLoading(false);
 
       const data = await response.json();
-      console.log(data);
       if (!response.ok) throw new Error(data.message);
       localStorage.setItem("token", data.token);
       navigate("/admin/dashboard");
