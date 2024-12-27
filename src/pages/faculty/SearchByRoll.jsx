@@ -46,6 +46,7 @@ export default function SearchByRoll() {
       setError();
     } catch (err) {
       setError(err.message);
+      setStudent("");
     }
   }
 
@@ -76,7 +77,7 @@ export default function SearchByRoll() {
   return (
     <div className="w-full h-full flex flex-col gap-4">
       <form onSubmit={handleSubmit} className="flex gap-2 items-center w-full max-w-md">
-        <input onChange={handleChange} type="number" placeholder="Roll Number to search..." name="rollNumber" className="grow focus:outline-none ring rounded-sm px-3 py-1" />
+        <input onChange={handleChange} type="number" placeholder="Roll Number to search..." name="rollNumber" value={rollNumber} className="grow focus:outline-none ring rounded-sm px-3 py-1" />
         <button type="submit" className="bg-sky-200 p-1 ring ring-sky-200 rounded-sm">
           <SearchSVG />
         </button>
