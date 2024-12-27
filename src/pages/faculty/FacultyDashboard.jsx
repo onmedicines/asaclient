@@ -3,10 +3,6 @@ import { use } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../context/LoadingContext";
 
-// context defined in the same file
-// because its only going to be used by its direct children
-export const StateContext = createContext(false);
-
 export default function FacultyDashboard() {
   const navigate = useNavigate();
   const { setError, setIsLoading } = useContext(LoadingContext);
@@ -18,14 +14,6 @@ export default function FacultyDashboard() {
   useEffect(() => {
     getDetails();
   }, []);
-
-  useEffect(() => {
-    let timeout = setTimeout(() => {
-      setError("");
-    }, 3000);
-
-    return () => clearTimeout(timeout);
-  }, [error]);
 
   async function getDetails() {
     try {
@@ -52,7 +40,7 @@ export default function FacultyDashboard() {
   }
 
   return (
-    <div className={`min-h-full bg-white w-full max-w-screen-md rounded-md p-8 sm:p-16 flex flex-col gap-4 ${isLoading && "pointer-events-none cursor-wait"}`}>
+    <div className={`min-h-full bg-white w-full max-w-screen-md rounded-md p-8 sm:p-16 flex flex-col gap-4`}>
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold text-sky-600">Hello, {facultyName}</h1>
         <button className="bg-red-400 hover:bg-red-500 transition-colors duration-200 text-white px-2 py-1 rounded-sm" onClick={handleLogout}>
@@ -75,9 +63,7 @@ export default function FacultyDashboard() {
           </div>
         </div>
       </div>
-      <StateContext.Provider value={{ setIsLoading, setError }}>
-        <div className="grow">{<Outlet />}</div>
-      </StateContext.Provider>
+      <div className="grow">{<Outlet />}</div>
     </div>
   );
 }
