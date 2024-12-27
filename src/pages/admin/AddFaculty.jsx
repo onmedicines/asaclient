@@ -67,7 +67,7 @@ export default function AddFaculty() {
 
   return (
     <div className="flex justify-center mt-4">
-      <div className="flex flex-col items-center py-8 rounded-md bg-white w-full max-w-lg ring px-8 py-8">
+      <div className="flex flex-col items-center py-8 md:px-8 rounded-md bg-white w-full max-w-lg ring">
         <h1 className="text-center font-bold text-2xl text-sky-600 mb-4">Add New Faculty</h1>
         <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 px-8 py-8">
           <label htmlFor="name" className="relative flex flex-col w-full border-b-2 border-b-zinc-700">
