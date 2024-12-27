@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../context/LoadingContext";
 
-export default function StudentLogin() {
+export default function StudentRegister() {
   const { setIsLoading, setError } = useContext(LoadingContext);
   const navigate = useNavigate();
   const [rollNumber, setRoll] = useState("");
