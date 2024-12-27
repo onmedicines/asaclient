@@ -5,7 +5,7 @@ import { SearchSVG } from "../../components/SearchSVG";
 export default function SearchStudentByRoll() {
   const { setIsLoading, setError } = useContext(LoadingContext);
 
-  const [rollNumber, setRollNumber] = useState();
+  const [rollNumber, setRollNumber] = useState("");
   const [student, setStudent] = useState();
   // Format:
   // {
