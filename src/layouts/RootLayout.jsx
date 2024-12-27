@@ -25,7 +25,7 @@ export default function RootLayout() {
   }, [success]);
 
   return (
-    <div className={`h-screen min-h-screen w-full text-zinc-800 flex flex-col ${isLoading && "pointer-events-none cursor-wait"}`}>
+    <div className={`h-screen min-h-screen w-full text-zinc-800 flex flex-col overflow-y-scroll ${isLoading && "pointer-events-none cursor-wait"}`}>
       {isLoading && (
         <div className="z-10 text-center fixed right-4 bottom-4 rounded-sm w-fit bg-sky-500 p-4 text-white">
           <p>Loading...</p>

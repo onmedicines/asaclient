@@ -67,9 +67,9 @@ export default function AddFaculty() {
 
   return (
     <div className="flex justify-center mt-4">
-      <div className="flex flex-col items-center py-8 rounded-md bg-white w-full max-w-lg ring px-8">
-        <h1 className="text-center font-bold text-lg text-sky-600 mb-4">Add New Faculty</h1>
-        <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 mt-4">
+      <div className="flex flex-col items-center py-8 rounded-md bg-white w-full max-w-lg ring px-8 py-8">
+        <h1 className="text-center font-bold text-2xl text-sky-600 mb-4">Add New Faculty</h1>
+        <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 px-8 py-8">
           <label htmlFor="name" className="relative flex flex-col w-full border-b-2 border-b-zinc-700">
             <input type="text" name="name" id="name" className="bg-inherit peer py-2 focus:outline-none placeholder-transparent" placeholder="Name" onChange={handleChange} value={name} />
             <span className="text-xs font-semibold text-zinc-500 absolute -top-4 left-0 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-4 peer-focus:text-xs transition-all duration-100">Name</span>

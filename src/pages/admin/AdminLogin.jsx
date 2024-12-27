@@ -51,10 +51,10 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="flex flex-col gap-2 items-center py-8 rounded-md bg-white w-full max-w-lg">
-      <h1 className="text-3xl font-bold text-center text-sky-600">Admin Login</h1>
+    <div className="flex flex-col gap-2 items-center py-8 px-8 rounded-md bg-white w-full max-w-lg">
+      <h1 className="text-3xl font-bold text-center text-sky-600 mt-4">Admin Login</h1>
       <p className="text-sm">Please enter your details</p>
-      <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 px-8 py-8 mt-4">
+      <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 px-8 py-8 ">
         <label htmlFor="username" className="relative flex flex-col w-full border-b-2 border-b-zinc-700">
           <input type="text" name="username" id="username" className="bg-inherit peer py-2 focus:outline-none placeholder-transparent" placeholder="Username" onChange={handleChange} value={username} />
           <span className="text-xs font-semibold text-zinc-500 absolute -top-4 left-0 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-4 peer-focus:text-xs transition-all duration-100">Username</span>
