@@ -51,8 +51,7 @@ export default function StudentLogin() {
   }
 
   return (
-    <div className="flex flex-col gap-2 items-center py-8 rounded-md bg-white w-full max-w-lg">
-      {error && <p className="text-center fixed right-4 bottom-4 rounded-sm w-fit bg-red-500 p-4 text-white">{error}</p>}
+    <div className="flex flex-col gap-2 items-center py-8 px-8 rounded-md bg-white w-full max-w-lg">
       <h1 className="text-3xl font-bold text-center text-sky-600">Student Login</h1>
       <p className="text-sm">Please enter your details</p>
       <form onSubmit={handleSubmit} autoComplete="off" className="w-full flex flex-col gap-8 px-8 py-8 mt-4">
