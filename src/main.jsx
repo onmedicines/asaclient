@@ -23,6 +23,7 @@ import AddFaculty from "./pages/admin/AddFaculty.jsx";
 import ViewAllFaculties from "./pages/admin/ViewAllFaculties.jsx";
 import SearchStudentByRoll from "./pages/admin/SearchStudentByRoll.jsx";
 import SearchStudentsBySemester from "./pages/admin/SearchStudentsBySemester.jsx";
+import About from "./About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "about",
+        element: <About />,
       },
       {
         path: "student/login",

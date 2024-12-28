@@ -40,7 +40,7 @@ export default function FacultyDashboard() {
   }
 
   return (
-    <div className={`min-h-full bg-white w-full max-w-screen-md rounded-md p-8 sm:p-16 flex flex-col gap-4`}>
+    <div className={`min-h-full grow bg-white w-full max-w-screen-md rounded-md p-8 sm:p-16 flex flex-col gap-4`}>
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold text-sky-600">Hello, {facultyName}</h1>
         <button className="bg-red-400 hover:bg-red-500 transition-colors duration-200 text-white px-2 py-1 rounded-sm" onClick={handleLogout}>
