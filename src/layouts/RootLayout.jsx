@@ -36,9 +36,9 @@ export default function RootLayout() {
       {success && <p className="z-10 text-center fixed right-4 bottom-4 rounded-sm w-fit bg-emerald-500 p-4 text-white">{success}</p>}
 
       <header className="text-center text-xl sm:text-2xl font-bold py-4 bg-sky-600 text-zinc-200 ">Assignment Submission App</header>
-      <main className="relative flex flex-col grow bg-sky-200 py-8 px-4 justify-center items-center">
+      <main className="relative flex flex-col grow bg-sky-200 py-4 px-4 items-center">
         {(location.pathname === "/student/login" || location.pathname === "/student/register" || location.pathname === "/faculty/login" || location.pathname === "/admin/login") && (
-          <Link to={"/"} className="absolute top-4 left-1/2 transform -translate-x-1/2 font-semibold text-white bg-sky-300 px-3 py-1 rounded-sm hover:bg-sky-400 transition-colors duration-200">
+          <Link to={"/"} className="font-semibold text-white bg-sky-300 px-3 py-1 rounded-sm hover:bg-sky-400 transition-colors duration-200 mb-4">
             Home
           </Link>
         )}
